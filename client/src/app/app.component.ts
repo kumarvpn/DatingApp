@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { User } from './_Models/User';
+import { AccountService } from './_Services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
- constructor (private http: HttpClient ){}
+ constructor (private http: HttpClient , private accoutservice : AccountService ){}
  users:any
  title = 'The Dating App';
   ngOnInit() {
    this.getUsers();
+   this.setCurrentuser();
   }
   
+  setCurrentuser()
+  {
+    const user :User =  JSON.parse(localStorage.getItem('user'));
+    this.accoutservice.setCurrentUser(user);
+  }
 
 
   getUsers()
